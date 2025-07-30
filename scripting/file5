@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "adding new branch"
+git checkout dev
+echo "adding code"
+git add file5
+echo "adding commit"
+git commit -m "updating code"
+echo "pushing code"
+git push origin dev
+echo "creating pull request from dev to stage"
+gh pr create --base stage -- head dev --title "dev to stage" --body "merging dev and stage"
+read -p
+git checkout stage
+git push origin stage
+echo "from stage to main"
+gh pr create --base main --head stage --title "stage to main" --body "merging stage to main"
